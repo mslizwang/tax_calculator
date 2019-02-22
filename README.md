@@ -6,7 +6,9 @@
 
 变量参照表：
 
-工资（工资+奖金）income
+税前工资 income
+
+奖金 bonus
 
 免税收入 tax_free_income
 
