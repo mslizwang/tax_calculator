@@ -39,7 +39,7 @@ def r_n_d(taxable_income):
         return lv[6], tr, qd
 
 #个税计算器
-def calculator(month, income, tax_free_income, security_n_fund, tax_threshold, special_deduction, other_deduction):
+def calculator(month, income, bonus, tax_free_income, security_n_fund, tax_threshold, special_deduction, other_deduction):
     #根据月份，确定每月的累计应税额
     taxable_income_by_month = []
     i = 0
@@ -64,10 +64,17 @@ def calculator(month, income, tax_free_income, security_n_fund, tax_threshold, s
         paid_tax = total_tax[-2]
         current_tax = total_tax[-1]-paid_tax
     else:
+        paid_tax = 0
         current_tax = total_tax[-1]
     #本期应预扣预缴税额最小为0
     if current_tax < 0:
         current_tax = 0
+    #算上当月的奖金部分
+    if bonus > 0:
+        taxable_income_by_month[-1] += bonus
+        current_rate = r_n_d(taxable_income_by_month[-1])[1]
+        total_tax[-1] = taxable_income_by_month[-1] * current_rate
+        current_tax = round((total_tax[-1] - paid_tax),2)
 
     #print rate_by_month
     #print deduction_by_month
