@@ -4,7 +4,7 @@
 持续更新中
 这是第一个简单的框架。
 
-变量参照表：
+变量参照表：\n
 工资（工资+奖金）income
 免税收入 tax_free_income
 专项扣除（三险一金）security_n_fund
