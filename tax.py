@@ -71,6 +71,17 @@ def calculator(month, income, bonus, tax_free_income, security_n_fund, tax_thres
         current_tax = 0
     #算上当月的奖金部分
     if bonus > 0:
+        year_end_taxable_income = taxable_income_by_month[0]*12
+        if year_end_taxable_income < 0:
+            year_end_taxable_income = 0
+        year_end_taxable_income += bonus
+        year_end_tax_rate = r_n_d(year_end_taxable_income)[1]
+        bonus_tax = bonus * year_end_tax_rate
+        if year_end_tax_rate > rate_by_month[-1]:
+            #print "奖金部分所得税总额为%i左右，当前月份未缴足，可以在后期补足。" % bonus_tax
+            flag = 1
+        else:
+            flag = 0
         taxable_income_by_month[-1] += bonus
         current_rate = r_n_d(taxable_income_by_month[-1])[1]
         total_tax[-1] = taxable_income_by_month[-1] * current_rate
@@ -81,4 +92,4 @@ def calculator(month, income, bonus, tax_free_income, security_n_fund, tax_thres
     #print taxable_income_by_month
     #print total_tax
     #print paid_tax
-    return current_tax
+    return current_tax, flag, bonus_tax
