@@ -86,6 +86,9 @@ def calculator(month, income, bonus, tax_free_income, security_n_fund, tax_thres
         current_rate = r_n_d(taxable_income_by_month[-1])[1]
         total_tax[-1] = taxable_income_by_month[-1] * current_rate
         current_tax = round((total_tax[-1] - paid_tax),2)
+    else:
+        flag = 0
+        bonus_tax = 0  
 
     #print rate_by_month
     #print deduction_by_month
